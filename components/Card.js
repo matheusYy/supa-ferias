@@ -13,7 +13,10 @@ const Card = ({
   price = 0,
   favorite = false,
   onClickFavorite = () => null,
-}) => (
+}) => {
+ 
+ console.log(`ss: ${image}`)
+  return (
   <Link href={`/homes/${id}`}>
     <a className="block w-full">
       <div className="relative">
@@ -69,8 +72,9 @@ const Card = ({
         <span className="text-gray-500">/night</span>
       </p>
     </a>
-  </Link>
-);
+  </Link> 
+ );
+}
 
 Card.propTypes = {
   id: PropTypes.string.isRequired,

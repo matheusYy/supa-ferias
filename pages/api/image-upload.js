@@ -4,10 +4,9 @@ import { decode } from 'base64-arraybuffer';
 
 
 const supabase = createClient(
- process.env.SUPABASE_URL,
- process.env.SUPABASE_KEY
-);
-
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY,
+ );
 
 const imageUpload = async (req, res) => {
  if (req.method === 'POST') {
@@ -31,7 +30,7 @@ const imageUpload = async (req, res) => {
     const path = `${fileName}.${ext}`;
 
     const { data, error: uploadError } = await supabase.storage
-      .from(process.env.SUPABASE_BUCKET)
+      .from(`${process.env.SUPABASE_BUCKET}`)
       .upload(path, decode(base64FileData), {
         contentType,
         upsert: true,
@@ -46,8 +45,8 @@ const imageUpload = async (req, res) => {
     const url = `${process.env.SUPABASE_URL.replace(
       '.co',
       '.in'
-    )}/storage/v1/object/public/${data.Key}`;
-
+    )}/storage/v1/object/${process.env.SUPABASE_ORIGIN}/${data.path}`;
+    console.log(url)
     return res.status(200).json({ url });
   } catch (e) {
     res.status(500).json({ message: 'Something went wrong' });

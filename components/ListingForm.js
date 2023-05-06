@@ -37,6 +37,7 @@ const ListingForm = ({
       toastId = toast.loading('Uploading...');
       const { data } = await axios.post('/api/image-upload', { image });
       setImageUrl(data?.url);
+      console.log(`data: ${data}`)
       toast.success('Successfully uploaded', { id: toastId });
     } catch (e) {
       toast.error('Unable to upload', { id: toastId });
@@ -76,6 +77,7 @@ const ListingForm = ({
     beds: 1,
     baths: 1,
   };
+  console.log(imageUrl)
 
   return (
     <div>
